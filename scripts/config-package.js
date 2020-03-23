@@ -26,7 +26,7 @@ async function createModulePackage() {
       private: false,
       repository: {
         type: 'git',
-        url: 'https://github.com/programGitHub/prepawin-library.git'
+        url: 'https://github.com/programGitHub/graph.git'
       },
       version
     })
