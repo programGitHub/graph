@@ -13,7 +13,9 @@ function getLevel(range, magnitude, trigger) {
   }
 
   if (v < trigger.MIN) {
-    return v * 2 < trigger.MIN ? magnitude / 4 : magnitude / 2;
+    return v * 2 > trigger.MIN
+      ? magnitude / 2
+      : getLevel(range, magnitude / 10, trigger);
   }
 
   return magnitude;

@@ -26,7 +26,20 @@ const Root = () => (
 
     <div style={{ width: 16 }} />
 
-    <Graph x={[-1.5, 1.5]} y={[-1.5, 1.5]}>
+    <Graph
+      scales={{
+        x: [
+          { label: '-\\frac{\\sqrt{3}}{2}', value: -Math.sqrt(3) / 2 },
+          { label: '-\\frac{\\sqrt{2}}{2}', value: -Math.sqrt(2) / 2 },
+          { label: '-\\frac{1}{2}', value: -0.5 },
+          { label: '\\frac{1}{2}', value: 0.5 },
+          { label: '\\frac{\\sqrt{2}}{2}', value: Math.sqrt(2) / 2 },
+          { label: '\\frac{\\sqrt{3}}{2}', value: Math.sqrt(3) / 2 }
+        ]
+      }}
+      x={[-1.5, 1.5]}
+      y={[-1.5, 1.5]}
+    >
       <Circle color="#363636" r={1} x={0} y={0} />
       <Point
         color="#d32f2f"
@@ -68,7 +81,7 @@ const Root = () => (
 
     <div style={{ width: 16 }} />
 
-    <Graph>
+    <Graph height={500} width={500}>
       <Draw fn="x^3" />
       <Draw fn="x-1" color="blue" />
       <Draw fn="1-3*x" color="orange" />

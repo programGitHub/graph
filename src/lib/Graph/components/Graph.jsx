@@ -22,7 +22,15 @@ const styles = css({
 /**
  * Graph
  */
-const Graph = ({ children, grid, height, width, x: xRange, y: yRange }) => {
+const Graph = ({
+  children,
+  grid,
+  height,
+  scales,
+  width,
+  x: xRange,
+  y: yRange
+}) => {
   const x = useMemo(() => ({ MAX: xRange[1], MIN: xRange[0] }), [xRange]);
   const y = useMemo(() => ({ MAX: yRange[1], MIN: yRange[0] }), [yRange]);
   const xRatio = useMemo(() => width / (x.MAX - x.MIN), [width, x]);
@@ -56,13 +64,13 @@ const Graph = ({ children, grid, height, width, x: xRange, y: yRange }) => {
       <svg
         {...styles}
         height={height}
-        viewBox={`0 0 ${height} ${width}`}
+        viewBox={`0 0 ${width} ${height}`}
         width={width}
       >
-        {grid && <Grid />}
+        {grid && <Grid values={scales} />}
         <Axes />
         {children}
-        <Scales />
+        <Scales values={scales} />
       </svg>
     </Context.Provider>
   );
@@ -79,6 +87,7 @@ Graph.propTypes = {
   children: PropTypes.node,
   grid: PropTypes.bool.isRequired,
   height: PropTypes.number.isRequired,
+  scales: PropTypes.object,
   width: PropTypes.number.isRequired,
   x: PropTypes.arrayOf(PropTypes.number.isRequired),
   y: PropTypes.arrayOf(PropTypes.number.isRequired)

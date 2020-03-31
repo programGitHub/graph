@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React, { useMemo } from 'react';
 import Scale from './Scale';
 import useGraph from '../hooks/useGraph';
@@ -6,7 +7,7 @@ import useLines from '../hooks/useLines';
 /**
  * Scales
  */
-const Scales = () => {
+const Scales = ({ values }) => {
   const { coord, gridBounds, x, y } = useGraph();
   const getLine = useLines();
 
@@ -15,28 +16,50 @@ const Scales = () => {
       return null;
     }
 
-    const values = getLine(x.MIN, x.MAX, gridBounds.x);
-    const scales = values.map(e => ({
-      coord: coord(e, 0),
-      label: e
-    }));
+    const v =
+      values && Array.isArray(values.x)
+        ? values.x
+        : getLine(x.MIN, x.MAX, gridBounds.x);
+
+    const scales = v.map(e =>
+      typeof e === 'number'
+        ? {
+            coord: coord(e, 0),
+            label: e
+          }
+        : {
+            coord: coord(e.value, 0),
+            label: e.label
+          }
+    );
 
     return scales;
-  }, [coord, getLine, gridBounds.x, x]);
+  }, [coord, getLine, gridBounds.x, values, x]);
 
   const yScales = useMemo(() => {
     if (y.MAX < 0 || y.MIN > 0) {
       return null;
     }
 
-    const values = getLine(y.MIN, y.MAX, gridBounds.y);
-    const scales = values.map(e => ({
-      coord: coord(0, e),
-      label: e
-    }));
+    const v =
+      values && Array.isArray(values.y)
+        ? values.y
+        : getLine(y.MIN, y.MAX, gridBounds.y);
+
+    const scales = v.map(e =>
+      typeof e === 'number'
+        ? {
+            coord: coord(0, e),
+            label: e
+          }
+        : {
+            coord: coord(0, e.value),
+            label: e.label
+          }
+    );
 
     return scales;
-  }, [coord, getLine, gridBounds.y, y]);
+  }, [coord, getLine, gridBounds.y, values, y]);
 
   return (
     <g id="scales">
@@ -64,6 +87,29 @@ const Scales = () => {
         ))}
     </g>
   );
+};
+
+Scales.propTypes = {
+  values: PropTypes.shape({
+    x: PropTypes.arrayOf(
+      PropTypes.oneOfType([
+        PropTypes.shape({
+          label: PropTypes.string.isRequired,
+          value: PropTypes.number.isRequired
+        }),
+        PropTypes.number
+      ]).isRequired
+    ),
+    y: PropTypes.arrayOf(
+      PropTypes.oneOfType([
+        PropTypes.shape({
+          label: PropTypes.string.isRequired,
+          value: PropTypes.number.isRequired
+        }),
+        PropTypes.number
+      ]).isRequired
+    )
+  })
 };
 
 export default Scales;
