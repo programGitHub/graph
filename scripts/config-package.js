@@ -11,13 +11,18 @@ const PACKAGE_PATH = path.resolve(dirs.BUILD, 'package.json');
 
 async function createModulePackage() {
   const packageData = await fse.readFile(MAIN_PACKAGE_PATH, 'utf8');
-  const { devDependencies, name, peerDependencies, version } = JSON.parse(
-    packageData
-  );
+  const {
+    dependencies,
+    devDependencies,
+    name,
+    peerDependencies,
+    version
+  } = JSON.parse(packageData);
 
   fse.writeFile(
     PACKAGE_PATH,
     JSON.stringify({
+      dependencies,
       devDependencies,
       main: './index.js',
       module: './index.js',
