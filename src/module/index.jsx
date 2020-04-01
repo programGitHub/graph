@@ -95,7 +95,7 @@ const Root = () => (
       <Point
         x={0.5}
         y={-0.5}
-        latex="\text{intersection}"
+        label="\text{intersection}"
         transformOrigin={{ horizontal: 'left', vertical: 'center' }}
       />
     </Graph>

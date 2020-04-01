@@ -2,8 +2,6 @@ import { css } from 'glamor';
 import katex from 'katex';
 import PropTypes from 'prop-types';
 import React, { useEffect, useRef, useMemo } from 'react';
-import 'katex/dist/katex.min.css';
-import '../styles/index.css';
 
 const defaultOrigin = {
   horizontal: 'center',
@@ -26,7 +24,15 @@ const contentStyles = css({
   height: '100%',
   padding: 8,
   position: 'aboluste',
-  width: '100%'
+  width: '100%',
+
+  ' .katex': {
+    font: 'inherit',
+
+    ' .mathdefault': {
+      font: 'inherit'
+    }
+  }
 });
 
 /**
