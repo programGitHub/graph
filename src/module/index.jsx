@@ -1,12 +1,19 @@
-import Graph, { Circle, CurvePoints, Draw, Point } from 'lib';
+import Graph, { /*Circle,*/ CurvePoints, Draw, Point, Wrapper } from 'lib';
 import React from 'react';
+
+import { css } from 'glamor';
+
+const styles = css({
+  height: '100vh',
+  width: '100%',
+});
 
 /**
  * Root
  */
 const Root = () => (
   <div style={{ display: 'flex' }}>
-    <Graph x={[-1.5, 1.5]} y={[-1, 2]}>
+    {/* <Graph x={[-1.5, 1.5]} y={[-1, 2]}>
       <Draw color="#49a5fc" fn="x^2" />
       <Point
         label="A"
@@ -79,26 +86,28 @@ const Root = () => (
       />
     </Graph>
 
-    <div style={{ width: 16 }} />
+    <div style={{ width: 16 }} /> */}
 
-    <Graph height={500} width={500}>
-      <Draw fn="x^3" />
-      <Draw fn="x-1" color="blue" />
-      <Draw fn="1-3*x" color="orange" />
-      <CurvePoints
-        fn="x^3"
-        x={[1, 1.5]}
-        color="green"
-        label={['A', 'B']}
-        transformOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-      />
-      <Point
-        x={0.5}
-        y={-0.5}
-        label="\text{intersection}"
-        transformOrigin={{ horizontal: 'left', vertical: 'center' }}
-      />
-    </Graph>
+    <Wrapper {...styles}>
+      <Graph>
+        <Draw fn="x^3" />
+        <Draw fn="x-1" color="blue" />
+        <Draw fn="1-3*x" color="orange" />
+        <CurvePoints
+          fn="x^3"
+          x={[1, 1.5]}
+          color="green"
+          label={['A', 'B']}
+          transformOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+        />
+        <Point
+          x={0.5}
+          y={-0.5}
+          label="\text{intersection}"
+          transformOrigin={{ horizontal: 'left', vertical: 'center' }}
+        />
+      </Graph>
+    </Wrapper>
   </div>
 );
 
