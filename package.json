@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "glamor": "^2.20.40",
-    "mathjs": "^6.6.1"
+    "mathjs": "^7.5.1"
   },
   "scripts": {
     "start": "react-scripts start",
